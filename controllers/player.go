@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"reflect"
 	"sort"
 	"strconv"
 	"time"
@@ -130,9 +131,9 @@ func (pc PlayerController) CreatePlayer(w http.ResponseWriter, r *http.Request, 
 	}
 
 	// Check if all the fields are present in the request body
-	if ps.Name == "" || ps.Country == "" || ps.Score == 0 {
+	if ps.Name == "" || ps.Country == "" || ps.Score == 0 || len(ps.Name) > 15 || len(ps.Country) != 2 {
 		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprintf(w, "All fields are mandatory")
+		fmt.Fprintf(w, "Invalid fields")
 		return
 	}
 
@@ -173,9 +174,9 @@ func (pc PlayerController) UpdatePlayer(w http.ResponseWriter, r *http.Request, 
 	}
 
 	// Check if any of the fields in the updatedPlayer are empty
-	if updatedPlayer.Name == "" || updatedPlayer.Country == "" || updatedPlayer.Score == 0 {
+	if updatedPlayer.Name == "" || updatedPlayer.Country == "" || updatedPlayer.Score == 0 || len(updatedPlayer.Name) > 15 || len(updatedPlayer.Country) != 2 || reflect.TypeOf(updatedPlayer.Score).Kind() == reflect.Int {
 		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprintf(w, "All fields are mandatory")
+		fmt.Fprintf(w, "Invalid fields")
 		return
 	}
 
