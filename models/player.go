@@ -9,8 +9,3 @@ type Player struct {
 	Score   int           `json:"score" bson:"score"`
 }
 
-// All the attributes are mandatory.
-// ID uniquely identifies each player.
-// Name should have a cap of 15 characters.
-// Country code will be a two letter code representing the country (For e.g., IN, US).
-// Score will be an integer representing player score

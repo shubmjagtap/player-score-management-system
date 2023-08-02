@@ -5,11 +5,9 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
-	"reflect"
 	"sort"
 	"strconv"
 	"time"
-
 	"github.com/julienschmidt/httprouter"
 	"github.com/shubmjagtap/player-score-management-system/models"
 	"gopkg.in/mgo.v2"
@@ -160,7 +158,6 @@ func (pc PlayerController) CreatePlayer(w http.ResponseWriter, r *http.Request, 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	fmt.Fprintf(w, "%s\n", pj)
-	fmt.Printf("Created player: %s\n", pj)
 }
 
 func (pc PlayerController) UpdatePlayer(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -174,7 +171,7 @@ func (pc PlayerController) UpdatePlayer(w http.ResponseWriter, r *http.Request, 
 	}
 
 	// Check if any of the fields in the updatedPlayer are empty
-	if updatedPlayer.Name == "" || updatedPlayer.Country == "" || updatedPlayer.Score == 0 || len(updatedPlayer.Name) > 15 || len(updatedPlayer.Country) != 2 || reflect.TypeOf(updatedPlayer.Score).Kind() == reflect.Int {
+	if updatedPlayer.Name == "" || updatedPlayer.Country == "" || updatedPlayer.Score == 0 || len(updatedPlayer.Name) > 15 || len(updatedPlayer.Country) != 2 {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprintf(w, "Invalid fields")
 		return

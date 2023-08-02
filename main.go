@@ -18,8 +18,8 @@ func main() {
 	r.POST("/players", pc.CreatePlayer)
 	r.PUT("/players/:id", pc.UpdatePlayer)
 	r.DELETE("/players/:id", pc.DeletePlayer)
+	fmt.Println("Listening and serving on port 9000...")
 	http.ListenAndServe("localhost:9000", r)
-	fmt.Println("Listening and serving on port 9000")
 }
 
 func getSession() *mgo.Session {
@@ -29,11 +29,3 @@ func getSession() *mgo.Session {
 	}
 	return s
 }
-
-// 1. POST /players – Creates a new entry for a player
-// 2. PUT /players/:id – Updates the player attributes. Only name and
-// score can be updated
-// 3. DELETE /players/:id – Deletes the player entry
-// 4. GET /players – Displays the list of all players in descending order
-// 5. GET /players/rank/:val – Fetches the player ranked “val”
-// 6. GET /players/random – Fetches a random player
