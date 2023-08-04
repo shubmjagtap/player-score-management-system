@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Install the required packages for your Go application (if needed)
-# RUN go get -d -v ./...
+RUN go get -d -v ./...
 
 # Build your Go application
 RUN go build -o main .
